@@ -1,6 +1,31 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
+const sliderWrapper = document.querySelector('.slider-wrapper');
+const sliderItems = document.querySelectorAll('.slider-item');
+const leftButton = document.querySelector('.slider-btn.left');
+const rightButton = document.querySelector('.slider-btn.right');
+let currentIndex = 0;
+function updateSliderPosition() {
+    const offset = -currentIndex * 100;
+    sliderWrapper.style.transform = `translateX(${offset}%)`;
+}
+leftButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = sliderItems.length - 1; 
+    }
+    updateSliderPosition();
+});
+rightButton.addEventListener('click', () => {
+    if (currentIndex < sliderItems.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0; 
+    }
+    updateSliderPosition();
+});
 const getData = async() =>{
     const id = urlParams.get("id");
     
@@ -20,39 +45,6 @@ const getData = async() =>{
             <a href="${film.officialSite}" class="cardDetail-link">Official Site</a>
         </div>
     </div>
-
 `;
-
-
 };
 getData();
-const sliderWrapper = document.querySelector('.slider-wrapper');
-const sliderItems = document.querySelectorAll('.slider-item');
-const leftButton = document.querySelector('.slider-btn.left');
-const rightButton = document.querySelector('.slider-btn.right');
-
-let currentIndex = 0;
-
-function updateSliderPosition() {
-    const offset = -currentIndex * 100;
-    sliderWrapper.style.transform = `translateX(${offset}%)`;
-}
-
-leftButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-    } else {
-        currentIndex = sliderItems.length - 1; 
-    }
-    updateSliderPosition();
-});
-
-rightButton.addEventListener('click', () => {
-    if (currentIndex < sliderItems.length - 1) {
-        currentIndex++;
-    } else {
-        currentIndex = 0; 
-    }
-    updateSliderPosition();
-});
-
